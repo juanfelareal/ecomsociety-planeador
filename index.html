@@ -6,8 +6,21 @@
 <title>Planeador Diario · Ecom Society</title>
 <meta name="description" content="Propuesta de diseño del Planeador Diario de Ecom Society — visor hoja a hoja.">
 <meta property="og:title" content="Planeador Diario · Ecom Society">
-<meta property="og:description" content="Propuesta de diseño — pasa hoja a hoja.">
+<meta property="og:description" content="Propuesta de diseño del planeador diario de Ecom Society. Ábrelo y pasa hoja a hoja.">
 <meta property="og:image" content="https://juanfelareal.github.io/ecomsociety-planeador/og.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://juanfelareal.github.io/ecomsociety-planeador/">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_CO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Planeador Diario · Ecom Society">
+<meta name="twitter:description" content="Propuesta de diseño — pasa hoja a hoja.">
+<meta name="twitter:image" content="https://juanfelareal.github.io/ecomsociety-planeador/og.jpg">
+<meta name="theme-color" content="#050810">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="isotipo.png">
 <meta name="robots" content="noindex">
 <link rel="icon" href="isotipo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,6 +34,9 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,.book{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+body{overscroll-behavior:none;-webkit-user-select:none;user-select:none}
 body{background:var(--bg);color:#fff;font-family:Inter,system-ui,sans-serif;overflow:hidden;
   background-image:radial-gradient(ellipse 60% 50% at 50% 45%,rgba(31,123,224,.22),transparent 70%),radial-gradient(ellipse 40% 30% at 85% 10%,rgba(95,184,255,.10),transparent 70%);}
 
@@ -32,11 +48,10 @@ body{background:var(--bg);color:#fff;font-family:Inter,system-ui,sans-serif;over
 .brand .t b{display:block;color:#fff;font-weight:500}
 .swatches{display:flex;align-items:center;gap:8px;font:500 10px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .sw{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.25);cursor:pointer;transition:transform .2s,border-color .2s}
-.sw:hover{transform:scale(1.12)}
+@media (hover:hover){.sw:hover{transform:scale(1.12)}}
 .sw.on{border-color:#fff;box-shadow:0 0 0 3px rgba(95,184,255,.35)}
 
 .stage{position:fixed;left:0;right:0;top:76px;bottom:132px;display:flex;align-items:center;justify-content:center}
-@media (max-width:760px){.stage{top:60px;bottom:84px}}
 .bookwrap{position:relative;transform-origin:center center}
 .book{position:relative;width:840px;height:648px;perspective:2600px;transition:transform .6s cubic-bezier(.4,.1,.2,1)}
 .half{position:absolute;top:0;width:420px;height:648px}
@@ -53,17 +68,33 @@ body{background:var(--bg);color:#fff;font-family:Inter,system-ui,sans-serif;over
 .leaf .face::before{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;background:linear-gradient(to right,rgba(0,0,0,.25),transparent 60%);transition:opacity .35s}
 .leaf.mid .face::before{opacity:1}
 
-.nav{position:fixed;bottom:0;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px 18px;z-index:20}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px calc(18px + env(safe-area-inset-bottom));z-index:20}
+.top{padding-top:calc(14px + env(safe-area-inset-top))!important}
 .navrow{display:flex;align-items:center;gap:14px}
 .btn{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center;transition:background .2s,transform .2s}
-.btn:hover{background:var(--brand);border-color:var(--brand)}
+@media (hover:hover){.btn:hover{background:var(--brand);border-color:var(--brand)}}
+.btn:active{background:var(--brand);border-color:var(--brand)}
 .btn:disabled{opacity:.3;pointer-events:none}
 .count{font:500 12px 'JetBrains Mono',monospace;letter-spacing:.08em;color:rgba(255,255,255,.75);min-width:170px;text-align:center}
 .count b{color:#fff;font-weight:500}
 .chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
 .chip{font:500 10px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.14);border-radius:50px;padding:6px 11px;cursor:pointer;background:transparent;transition:all .2s}
-.chip:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+@media (hover:hover){.chip:hover{color:#fff;border-color:rgba(255,255,255,.4)}}
 .chip.on{background:#fff;color:var(--bg);border-color:#fff}
+.btn.sm{width:36px;height:36px;font-size:14px}
+.btn svg{width:16px;height:16px}
+.scrub{display:none;width:min(320px,82vw);-webkit-appearance:none;appearance:none;height:3px;border-radius:3px;background:rgba(255,255,255,.18);outline:none}
+.scrub::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid var(--brand);box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.scrub::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:4px solid var(--brand)}
+.toast{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(5,8,16,.88);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font:500 12px Inter;padding:12px 18px;border-radius:50px;z-index:40;pointer-events:none;opacity:0;transition:opacity .4s;white-space:nowrap}
+.toast.on{opacity:1}
+.zoom{position:fixed;inset:0;z-index:50;background:rgba(5,8,16,.97);display:none;overflow:auto;-webkit-overflow-scrolling:touch;user-select:auto;-webkit-user-select:auto}
+.zoom.on{display:block}
+.zoom .sizer{position:relative;margin:0 auto}
+.zoom .zin{position:absolute;top:0;left:0;width:420px;height:648px;transform-origin:0 0}
+.zoom .zin .zp{position:absolute;top:0;width:420px;height:648px}
+.zbar{position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;display:flex;gap:8px;z-index:51}
+.zbar .btn{background:rgba(5,8,16,.8);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .hint{position:fixed;right:20px;bottom:24px;font:400 10px 'JetBrains Mono',monospace;letter-spacing:.1em;color:rgba(255,255,255,.35);text-transform:uppercase}
 
 /* ---------- pages (design size 420x648 = 140x216mm @3px/mm) ---------- */
@@ -176,7 +207,7 @@ body{background:var(--bg);color:#fff;font-family:Inter,system-ui,sans-serif;over
 .kpi div{height:22px;border-bottom:1px solid var(--line);display:flex;align-items:flex-end;justify-content:space-between;padding-bottom:3px;font:500 5.6px 'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .water{display:flex;justify-content:space-between;margin-top:8px;padding:0 2px}
 .water svg{width:9px;height:12px}
-.dots{height:168px;margin-top:6px;background-image:radial-gradient(circle,#9aa3b3 .7px,transparent .9px);background-size:9px 9px;background-position:-3px -3px}
+.dots{height:168px;margin-top:6px;background-image:radial-gradient(circle,#8f98a8 .9px,transparent 1.15px);background-size:9px 9px;background-position:-3px -3px}
 
 /* blank */
 .blank .mark{opacity:.25}
@@ -193,8 +224,26 @@ body{background:var(--bg);color:#fff;font-family:Inter,system-ui,sans-serif;over
   .brand .t{display:none}
   .hint{display:none}
   .chips{display:none}
-  .count{min-width:130px;font-size:11px}
+  .count{min-width:118px;font-size:10.5px;line-height:1.45}
+  .scrub{display:block}
+  .nav{gap:12px}
 }
+body.short .top{padding:6px 14px!important}
+body.short .brand .lg{width:60px;height:30px}
+body.short .brand .t,body.short .chips,body.short .hint,body.short .scrub{display:none}
+body.short .nav{padding:4px 16px calc(6px + env(safe-area-inset-bottom))}
+body.short .btn{width:36px;height:36px}
+body.short .count br{display:none}
+body.short .count b::after{content:" · "}
+/* OG render */
+body.og .top,body.og .nav,body.og .hint{display:none}
+body.og .stage{left:500px!important;right:20px!important;top:0!important;bottom:0!important}
+.oghead{display:none}
+body.og .oghead{display:block;position:fixed;left:72px;top:50%;transform:translateY(-50%);width:420px}
+.oghead .lg{width:150px;height:75px;background:#fff;-webkit-mask:url(logo.png) left center/contain no-repeat;mask:url(logo.png) left center/contain no-repeat;margin-bottom:34px}
+.oghead h1{font:400 64px/1 'Archivo Black',sans-serif;letter-spacing:-2px;color:#fff}
+.oghead h1 em{font-style:normal;color:var(--brand2)}
+.oghead p{margin-top:22px;font:500 13px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6)}
 @media (max-height:560px){.chips{display:none}}
 </style>
 </head>
@@ -230,8 +279,14 @@ body{background:var(--bg);color:#fff;font-family:Inter,system-ui,sans-serif;over
     <button class="btn" id="prev" aria-label="Anterior">←</button>
     <div class="count" id="count"></div>
     <button class="btn" id="next" aria-label="Siguiente">→</button>
+    <button class="btn sm" id="zbtn" aria-label="Ampliar hoja" title="Ampliar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6"/></svg></button>
   </div>
+  <input type="range" class="scrub" id="scrub" min="1" value="1" aria-label="Ir a página">
 </nav>
+<div class="toast" id="toast">Desliza o toca la hoja para pasarla</div>
+<div class="zoom" id="zoom"><div class="sizer" id="zsizer"><div class="zin" id="zin"></div></div></div>
+<div class="zbar" id="zbar" style="display:none"><button class="btn sm" id="zminus" aria-label="Alejar">−</button><button class="btn sm" id="zplus" aria-label="Acercar">+</button><button class="btn sm" id="zclose" aria-label="Cerrar">✕</button></div>
+<div class="oghead"><div class="lg"></div><h1>Planeador<br><em>diario</em></h1><p>Propuesta de diseño · 14 × 21,6 cm</p></div>
 <div class="hint">← → teclado · clic en la hoja</div>
 
 <script>
@@ -362,8 +417,8 @@ sect('Contratapa'); add(backCover);
 const N=P.length; // par → la contratapa queda sola a la izquierda
 const label=(i)=>{ if(i===0)return 'Tapa'; if(i===N-1)return 'Contratapa';
   const d0=SECT.find(s=>s[0]==='Planeación diaria')[1], b0=SECT.find(s=>s[0]==='Hojas en blanco')[1];
-  if(i>=d0&&i<b0) return `Planeación · hoja ${Math.floor((i-d0)/2)+1} de ${HOJAS_DIARIAS}`;
-  if(i>=b0&&i<b0+HOJAS_BLANCO*2) return `En blanco · hoja ${Math.floor((i-b0)/2)+1} de ${HOJAS_BLANCO}`;
+  if(i>=d0&&i<b0) return `Diario ${i-d0+1}/${HOJAS_DIARIAS*2}`;
+  if(i>=b0&&i<b0+HOJAS_BLANCO*2) return `En blanco ${i-b0+1}/${HOJAS_BLANCO*2}`;
   for(let k=SECT.length-1;k>=0;k--) if(i>=SECT[k][1]) return SECT[k][0]; };
 const html=(i)=> (i>=0&&i<N)?P[i]():'';
 
@@ -372,10 +427,16 @@ const $=id=>document.getElementById(id);
 const L=$('L'),R=$('R'),leaf=$('leaf'),F=$('F'),B=$('B'),book=$('book'),wrap=$('wrap');
 let single=false, s=0, busy=false;
 const maxS=()=> single? N-1 : N/2;
+const OG = location.hash.includes('og');
+if(OG) document.body.classList.add('og');
 function fit(){
-  single = innerWidth<=760;
-  const w = single?420:840, chrome = innerWidth<=760? 144 : (innerHeight<=560?150:208)+12;
-  const sc = Math.min((innerWidth-(single?32:80))/w, (innerHeight-chrome)/648, 1.35);
+  document.body.classList.toggle('short', innerHeight<=520 && !OG);
+  single = !OG && innerWidth<=760 && innerHeight>innerWidth;
+  const st=$('stage');
+  if(!OG){ const tH=document.querySelector('.top').offsetHeight, nH=document.querySelector('.nav').offsetHeight;
+    st.style.top=tH+'px'; st.style.bottom=nH+'px'; }
+  const w = single?420:840;
+  const sc = Math.min((st.clientWidth-(single?24:56))/w, (st.clientHeight-(single?12:24))/648, 1.35);
   book.style.width=w+'px';
   wrap.style.transform=`scale(${sc})`; wrap.style.width=w+'px'; wrap.style.height='648px'; wrap.style.flex='none';
 }
@@ -393,7 +454,9 @@ function ui(){
   let a,b;
   if(single){a=s;b=null}else{a=s===0?0:2*s-1;b=(s===0||2*s>=N)?null:2*s}
   const pg = b===null?`${a+1}`:`${a+1}–${b+1}`;
-  $('count').innerHTML = `<b>${label(b??a)}</b><br>pág. ${pg} de ${N}`;
+  let lb=label(b??a); if(b!==null){ const la=label(a), m=/^(.*) (\d+)\/(\d+)$/.exec(la), m2=/^(.*) (\d+)\/(\d+)$/.exec(lb); if(m&&m2&&m[1]===m2[1]) lb=`${m[1]} ${m[2]}–${m2[2]}/${m[3]}`; }
+  $('count').innerHTML = `<b>${lb}</b><br>pág. ${pg} de ${N}`;
+  $('scrub').value = (single? s : (s===0?0:2*s-1))+1;
   const cur = single? s : (s===0?0:2*s-1);
   let on=0; SECT.forEach((x,k)=>{ if(cur>=x[1]) on=k });
   document.querySelectorAll('.chip').forEach((c,k)=>c.classList.toggle('on',k===on));
@@ -431,10 +494,27 @@ function anim(dir){
 }
 function jump(pageIdx){ s = single? pageIdx : Math.ceil(pageIdx/2); s=Math.max(0,Math.min(maxS(),s)); draw(); }
 
+$('scrub').max=N;
+$('scrub').oninput=e=>jump(+e.target.value-1);
+const Z=$('zoom'); let zl=0;
+function zoomDraw(){
+  const idx = single? [s] : (s===0?[0]:[2*s-1,2*s].filter(i=>i<N));
+  const w=420*idx.length, base=Math.min((innerWidth-16)/w, 3), z=base*[1,1.8,2.6][zl];
+  $('zin').style.width=w+'px'; $('zin').innerHTML=idx.map((i,k)=>`<div class="zp" style="left:${k*420}px">${html(i)}</div>`).join('');
+  $('zin').style.transform=`scale(${z})`;
+  $('zsizer').style.width=w*z+'px'; $('zsizer').style.height=648*z+'px';
+  $('zsizer').style.margin = (Math.max(64,(innerHeight-648*z)/2))+'px auto 40px';
+  $('zminus').disabled=zl===0; $('zplus').disabled=zl===2;
+}
+$('zbtn').onclick=()=>{ zl= single?1:0; Z.classList.add('on'); $('zbar').style.display='flex'; zoomDraw(); Z.scrollTop=0; Z.scrollLeft=0; };
+$('zclose').onclick=()=>{ Z.classList.remove('on'); $('zbar').style.display='none'; $('zin').innerHTML=''; };
+$('zplus').onclick=()=>{ if(zl<2){zl++;zoomDraw()} };
+$('zminus').onclick=()=>{ if(zl>0){zl--;zoomDraw()} };
+addEventListener('keydown',e=>{ if(e.key==='Escape') $('zclose').click(); });
 $('next').onclick=()=>anim(1); $('prev').onclick=()=>anim(-1);
-addEventListener('keydown',e=>{ if(e.key==='ArrowRight')anim(1); if(e.key==='ArrowLeft')anim(-1); });
+addEventListener('keydown',e=>{ if(Z.classList.contains('on'))return; if(e.key==='ArrowRight')anim(1); if(e.key==='ArrowLeft')anim(-1); });
 book.addEventListener('click',e=>{ const r=book.getBoundingClientRect(); (e.clientX-r.left > r.width/2)?anim(1):anim(-1); });
-let tx=null; addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+let tx=null; addEventListener('touchstart',e=>{ tx = (Z.classList.contains('on')||e.target.closest('.nav'))? null : e.touches[0].clientX; },{passive:true});
 addEventListener('touchend',e=>{ if(tx===null)return; const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>40) anim(dx<0?1:-1); tx=null; });
 $('chips').innerHTML = SECT.map(([n,i])=>`<button class="chip" data-i="${i}">${n}</button>`).join('');
 document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>jump(+c.dataset.i));
@@ -442,8 +522,10 @@ document.querySelectorAll('.sw').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.sw').forEach(x=>x.classList.remove('on')); b.classList.add('on');
   document.documentElement.style.setProperty('--cover',b.dataset.c); document.documentElement.style.setProperty('--cover-ink',b.dataset.i);
 });
-addEventListener('resize',()=>{ const was=single; fit(); if(was!==single){ const p = was? s : (s===0?0:2*s-1); jump(p); } });
+addEventListener('resize',()=>{ const was=single; fit(); if(Z.classList.contains('on')) zoomDraw(); if(was!==single){ const p = was? s : (s===0?0:2*s-1); jump(p); } });
 fit(); draw();
+if(document.fonts) document.fonts.ready.then(fit);
+if(single){ setTimeout(()=>$('toast').classList.add('on'),900); setTimeout(()=>$('toast').classList.remove('on'),3600); }
 const hp=/p=(\d+)/.exec(location.hash); if(hp) jump(+hp[1]-1);
 </script>
 </body>
